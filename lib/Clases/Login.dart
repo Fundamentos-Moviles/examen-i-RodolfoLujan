@@ -1,4 +1,6 @@
+import 'package:examen1_lcjr/Clases/Home.dart';
 import 'package:flutter/material.dart';
+
 
 class Login extends StatefulWidget {
   static String id = "login_page";
@@ -17,6 +19,8 @@ class _LoginState extends State<Login> {
 
   final String correctUsername = "test";
   final String correctPassword = "FDM1";
+  
+  get borderRadius => null;
 
   void _validateInputs() {
     setState(() {
@@ -33,10 +37,11 @@ class _LoginState extends State<Login> {
         _errorMessage = "Contraseña incorrecta";
       } else {
         _errorMessage = '';
-        // Navegar a la vista Home
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
+         MaterialPageRoute(
+          builder: (context) => HomePage(studentName: 'Lujan_Carrera_Jose_Rodolfo'),
+          ) ,
         );
       }
     });
@@ -56,15 +61,27 @@ class _LoginState extends State<Login> {
                       _buildColoredContainer(Colors.teal, 150),
                       _buildColoredContainer(Colors.teal[800]!, 200),
                       _buildColoredContainer(Colors.cyan[700]!, 150),
+                      _buildColoredContainer(Colors.teal[800]!, 200),
                     ],
                   ),
                 ),
                 Expanded(
                   child: Row(
                     children: [
-                      _buildColoredContainer(Colors.cyan[900]!, 150),
-                      _buildColoredContainer(Colors.teal[600]!, 200),
-                      _buildColoredContainer(Colors.cyan[600]!, 150),
+                      _buildColoredContainer(Colors.teal, 150),
+                      _buildColoredContainer(Colors.teal[800]!, 200),
+                      _buildColoredContainer(Colors.cyan[700]!, 150),
+                      _buildColoredContainer(Colors.teal[800]!, 200),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      _buildColoredContainer(Colors.teal, 150),
+                      _buildColoredContainer(Colors.teal[800]!, 200),
+                      _buildColoredContainer(Colors.cyan[700]!, 150),
+                      _buildColoredContainer(Colors.teal[800]!, 200),
                     ],
                   ),
                 ),
@@ -73,14 +90,14 @@ class _LoginState extends State<Login> {
             Align(
               alignment: Alignment.center,
               child: Container(
-                width: 300,
+                width: 600,
                 height: 400, // Ajustamos el tamaño para dar espacio al error
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withOpacity(0.6),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(30.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -113,10 +130,11 @@ class _LoginState extends State<Login> {
                         ),
                         obscureText: true,
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 40),
                       ElevatedButton(
                         onPressed: _validateInputs,
                         child: const Text('Iniciar Sesión'),
+                        
                       ),
                     ],
                   ),
@@ -134,23 +152,6 @@ class _LoginState extends State<Login> {
       child: Container(
         width: width,
         color: color,
-      ),
-    );
-  }
-}
-
-// Vista de la página de inicio (Home)
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-      ),
-      body: const Center(
-        child: Text("Bienvenido a la página Home"),
       ),
     );
   }
