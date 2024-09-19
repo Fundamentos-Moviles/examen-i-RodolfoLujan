@@ -15,7 +15,7 @@ class AppColors {
 List<Map<String, dynamic>> actividades = [
   {'id': 8, 'title': 'Iniciar el examen', 'note': 'Subir el examen antes de las 9 am del viernes', 'rating': 5},
   {'id': 9, 'title': 'Terminar y enviar mi examen', 'note': 'No quiero reprobar', 'rating': 4},
-  {'id': 10, 'title': 'Revisar 36 examenes', 'note': 'Los alumnos tendrán todo lo que se les pidió', 'rating': 3},
+  {'id': 10, 'title': 'Revisar 36 examenes', 'note': 'No me repruebe :c', 'rating': 3},
   {'id': 11, 'title': 'Revisar tareas', 'note': 'Llenar la lista con las calificaciones', 'rating': 2},
   {'id': 12, 'title': 'Iniciar el examen', 'note': 'Subir el examen antes de las 9 am del viernes', 'rating': 5},
   {'id': 13, 'title': 'Terminar y enviar mi examen', 'note': 'No quiero reprobar', 'rating': 4},

@@ -41,13 +41,23 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: AppColors.fondo,  
       appBar: AppBar(
-        title: const Text('Notificaciones de actividades'),
-        centerTitle: true,
+        automaticallyImplyLeading: false,  
         backgroundColor: AppColors.fondo3,  
-        titleTextStyle: const TextStyle(
-          color: AppColors.titulos,  
-          fontWeight: FontWeight.bold,
-          fontSize: 22,
+        centerTitle: true,
+        title: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 250, vertical: 5), 
+          decoration: BoxDecoration(
+            color: Colors.white, 
+            borderRadius: BorderRadius.circular(10), 
+          ),
+          child: const Text(
+            'Notificaciones de actividades',
+            style: TextStyle(
+              color: AppColors.titulos,  
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
         ),
       ),
       body: Padding(
@@ -64,22 +74,34 @@ class _HomePageState extends State<HomePage> {
                   return Card(
                     color: Colors.white,  
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    elevation: 5, 
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
+                            flex: 2,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  '${actividad['id']}',
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.fondo2,  
-                                  ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${actividad['id']}',
+                                      style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.fondo2,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    if (esPar) const Icon(Icons.eco, color: AppColors.efectos),
+                                  ],
                                 ),
                                 Text(
                                   actividad['title'],
@@ -98,54 +120,54 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 const SizedBox(height: 8),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: List.generate(
+                                      5,
+                                      (starIndex) => Icon(
+                                        Icons.star,
+                                        color: starIndex < actividad['rating']
+                                            ? AppColors.efectos  
+                                            : Colors.grey,      
+                                        size: 18,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                         
-                              const Padding(
-                                padding: EdgeInsets.only(bottom: 8.0),
-                                child: Icon(
-                                  Icons.notifications,  
-                                  size: 30,
-                                  color: AppColors.efectos, 
-                                ),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: List.generate(
-                                  5,
-                                  (starIndex) => Icon(
-                                    Icons.star,
-                                    color: starIndex < actividad['rating']
-                                        ? AppColors.efectos  
-                                        : Colors.grey,      
-                                    size: 18,
-                                  ),
-                                ),
-                              ),
-                              if (esPar) ...[
-                                const SizedBox(height: 8),
-                                ElevatedButton(
+                          if (esPar)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                ElevatedButton.icon(
                                   onPressed: () => _verMas(actividad), 
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.botones, 
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
                                   ),
-                                  child: const Text('Ver más'),
+                                  icon: const Icon(Icons.edit, size: 16),
+                                  label: const Text('Ver más'),
                                 ),
                                 const SizedBox(height: 8),
-                                ElevatedButton(
+                                ElevatedButton.icon(
                                   onPressed: () => _borrarActividad(actividad['id']),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.botones,  
+                                    backgroundColor: AppColors.botones,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
                                   ),
-                                  child: const Text('Borrar'),
+                                  icon: const Icon(Icons.delete, size: 16),
+                                  label: const Text('Borrar'),
                                 ),
                               ],
-                            ],
-                          ),
+                            ),
                         ],
                       ),
                     ),
