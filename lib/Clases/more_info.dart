@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:examen1_lcjr/Clases/Constantes.dart';
+import 'package:flutter/material.dart';  // Importar los colores de constantes.dart
 
 class MoreInfo extends StatelessWidget {
   const MoreInfo({super.key});
@@ -10,13 +11,24 @@ class MoreInfo extends StatelessWidget {
     );
   }
 }
+
 class RecuadrosGrid extends StatefulWidget {
   @override
   _RecuadrosGridState createState() => _RecuadrosGridState();
 }
 
 class _RecuadrosGridState extends State<RecuadrosGrid> {
-  List<List<Widget>> filas = [[]]; // Lista de filas con recuadros
+  List<List<Widget>> filas = [[]]; 
+  List<Color> colores = [
+    AppColors.fondo, 
+    AppColors.fondo2, 
+    AppColors.fondo3, 
+    AppColors.fondo4,
+    AppColors.botones, 
+    AppColors.efectos  
+  ];
+
+  int recuadroContador = 0;  
 
   void _agregarRecuadro() {
     setState(() {
@@ -24,23 +36,24 @@ class _RecuadrosGridState extends State<RecuadrosGrid> {
       List<Widget> ultimaFila = filas.last;
       int numeroRecuadros = ultimaFila.length + 1;
 
-      // Si llegamos a 12 recuadros, empezamos una nueva fila
       if (numeroRecuadros > 12) {
-        filas.add([_crearRecuadro(1)]); // Nueva fila con 1 recuadro
+        filas.add([_crearRecuadro(1)]); 
       } else {
-        // Añade un recuadro más a la fila actual
         ultimaFila.add(_crearRecuadro(numeroRecuadros));
       }
     });
   }
 
   Widget _crearRecuadro(int numeroRecuadros) {
-    // Retorna un recuadro con un ancho dividido según el número de recuadros en la fila
+
+    Color color = colores[recuadroContador % colores.length];
+    recuadroContador++; 
+
     return Expanded(
       flex: 1, 
       child: Container(
-        height: 200, // Altura fija para todos los recuadros
-        color: numeroRecuadros % 2 == 0 ? Colors.blue : Colors.teal, // Color alternado
+        height: 200, 
+        color: color, 
       ),
     );
   }
@@ -53,19 +66,18 @@ class _RecuadrosGridState extends State<RecuadrosGrid> {
           child: ElevatedButton(
             onPressed: _agregarRecuadro,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green, // Color del botón
+              backgroundColor: AppColors.botones, 
               minimumSize: const Size(600, 50), 
             ),
             child: const Text(
               'Inicio Sesión',
-              style: TextStyle(fontSize: 18,), // Texto más grande
+              style: TextStyle(fontSize: 18), 
             ),
           ),
         ),
       ),
       body: Column(
         children: [
-          // Para cada fila, creamos un Row con los recuadros dentro
           Expanded(
             child: ListView.builder(
               itemCount: filas.length,

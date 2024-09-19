@@ -1,6 +1,6 @@
+import 'package:examen1_lcjr/Clases/Constantes.dart';
 import 'package:examen1_lcjr/Clases/Home.dart';
-import 'package:flutter/material.dart';
-
+import 'package:flutter/material.dart'; 
 
 class Login extends StatefulWidget {
   static String id = "login_page";
@@ -19,8 +19,6 @@ class _LoginState extends State<Login> {
 
   final String correctUsername = "test";
   final String correctPassword = "FDM1";
-  
-  get borderRadius => null;
 
   void _validateInputs() {
     setState(() {
@@ -39,9 +37,9 @@ class _LoginState extends State<Login> {
         _errorMessage = '';
         Navigator.push(
           context,
-         MaterialPageRoute(
-          builder: (context) => HomePage(studentName: 'Lujan_Carrera_Jose_Rodolfo'),
-          ) ,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(studentName: 'Lujan_Carrera_Jose_Rodolfo'),
+          ),
         );
       }
     });
@@ -58,30 +56,30 @@ class _LoginState extends State<Login> {
                 Expanded(
                   child: Row(
                     children: [
-                      _buildColoredContainer(Colors.teal, 150),
-                      _buildColoredContainer(Colors.teal[800]!, 200),
-                      _buildColoredContainer(Colors.cyan[700]!, 150),
-                      _buildColoredContainer(Colors.teal[800]!, 200),
+                      _buildColoredContainer(AppColors.fondo2, 150),
+                      _buildColoredContainer(AppColors.fondo, 200),
+                      _buildColoredContainer(AppColors.fondo3, 150),
+                      _buildColoredContainer(AppColors.fondo4, 200),
                     ],
                   ),
                 ),
                 Expanded(
                   child: Row(
                     children: [
-                      _buildColoredContainer(Colors.teal, 150),
-                      _buildColoredContainer(Colors.teal[800]!, 200),
-                      _buildColoredContainer(Colors.cyan[700]!, 150),
-                      _buildColoredContainer(Colors.teal[800]!, 200),
+                      _buildColoredContainer(AppColors.fondo4, 150),
+                      _buildColoredContainer(AppColors.fondo3, 200),
+                      _buildColoredContainer(AppColors.fondo2, 150),
+                      _buildColoredContainer(AppColors.fondo, 200),
                     ],
                   ),
                 ),
                 Expanded(
                   child: Row(
                     children: [
-                      _buildColoredContainer(Colors.teal, 150),
-                      _buildColoredContainer(Colors.teal[800]!, 200),
-                      _buildColoredContainer(Colors.cyan[700]!, 150),
-                      _buildColoredContainer(Colors.teal[800]!, 200),
+                      _buildColoredContainer(AppColors.fondo3, 150),
+                      _buildColoredContainer(AppColors.fondo4, 200),
+                      _buildColoredContainer(AppColors.fondo, 150),
+                      _buildColoredContainer(AppColors.fondo2, 200),
                     ],
                   ),
                 ),
@@ -90,54 +88,84 @@ class _LoginState extends State<Login> {
             Align(
               alignment: Alignment.center,
               child: Container(
-                width: 600,
-                height: 400, // Ajustamos el tamaño para dar espacio al error
+                width: 350,
+                padding: const EdgeInsets.all(30.0),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.6),
-                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(20), 
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Bienvenido a tu primer EXAMEN',
-                        style: TextStyle(
-                          color: Colors.amber[800],
-                          fontSize: 18,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Bienvenido a tu primer EXAMEN',
+                      style: TextStyle(
+                        color: AppColors.titulos,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: _userController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white, // Fondo blanco
+                        labelText: 'Correo/Usuario',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      // Mostrar mensaje de error si lo hay
-                      if (_errorMessage.isNotEmpty)
-                        Text(
+                    ),
+                    const SizedBox(height: 15),
+                    TextField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white, // Fondo blanco
+                        labelText: 'Contraseña',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      obscureText: true,
+                    ),
+                    const SizedBox(height: 15),
+                    if (_errorMessage.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10), // Aumentamos espacio debajo del error
+                        child: Text(
                           _errorMessage,
                           style: const TextStyle(color: Colors.red),
                         ),
-                      const SizedBox(height: 10),
-                      TextField(
-                        controller: _userController,
-                        decoration: const InputDecoration(
-                          labelText: 'Correo/Usuario',
-                        ),
                       ),
-                      const SizedBox(height: 15),
-                      TextField(
-                        controller: _passwordController,
-                        decoration: const InputDecoration(
-                          labelText: 'Contraseña',
+                    SizedBox(
+                      width: double.infinity, // Botón más ancho
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.botones,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
-                        obscureText: true,
-                      ),
-                      const SizedBox(height: 40),
-                      ElevatedButton(
                         onPressed: _validateInputs,
-                        child: const Text('Iniciar Sesión'),
-                        
+                        child: const Text(
+                          'Iniciar Sesión',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    // Mensaje debajo del botón
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Mi primer examen, ¿estará sencillo?',
+                      style: TextStyle(
+                        color: AppColors.efectos,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -150,8 +178,8 @@ class _LoginState extends State<Login> {
   Widget _buildColoredContainer(Color color, double width) {
     return Expanded(
       child: Container(
-        width: width,
         color: color,
+        height: double.infinity,
       ),
     );
   }

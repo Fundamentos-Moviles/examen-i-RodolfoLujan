@@ -1,31 +1,17 @@
+import 'package:examen1_lcjr/Clases/Constantes.dart';
 import 'package:examen1_lcjr/Clases/more_info.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';  // Importamos el archivo con las constantes
 
 class HomePage extends StatefulWidget {
   final String studentName;
 
-  HomePage({required this.studentName});
+  const HomePage({super.key, required this.studentName});
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map<String, dynamic>> actividades = [
-    {'id': 8, 'title': 'Iniciar el examen', 'note': 'Subir el examen antes de las 9 am del viernes', 'rating': 5},
-    {'id': 9, 'title': 'Terminar y enviar mi examen', 'note': 'No quiero reprobar', 'rating': 4},
-    {'id': 10, 'title': 'Revisar 36 examenes', 'note': 'Los alumnos tendrán todo lo que se les pidió', 'rating': 3},
-    {'id': 11, 'title': 'Revisar tareas', 'note': 'Llenar la lista con las calificaciones', 'rating': 2},
-    {'id': 12, 'title': 'Iniciar el examen', 'note': 'Subir el examen antes de las 9 am del viernes', 'rating': 5},
-    {'id': 13, 'title': 'Terminar y enviar mi examen', 'note': 'No quiero reprobar', 'rating': 4},
-    {'id': 14, 'title': 'Revisar 36 examenes', 'note': 'Los alumnos tendrán todo lo que se les pidió', 'rating': 3},
-    {'id': 15, 'title': 'Revisar tareas', 'note': 'Llenar la lista con las calificaciones', 'rating': 2},
-    {'id': 16, 'title': 'Iniciar el examen', 'note': 'Subir el examen antes de las 9 am del viernes', 'rating': 5},
-    {'id': 17, 'title': 'Terminar y enviar mi examen', 'note': 'No quiero reprobar', 'rating': 4},
-    {'id': 18, 'title': 'Revisar 36 examenes', 'note': 'Los alumnos tendrán todo lo que se les pidió', 'rating': 3},
-    {'id': 19, 'title': 'Revisar tareas', 'note': 'Llenar la lista con las calificaciones', 'rating': 2},
-  ];
-
   void _verMas(Map<String, dynamic> actividad) {
     Navigator.push(
       context,
@@ -53,9 +39,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.fondo,  
       appBar: AppBar(
         title: const Text('Notificaciones de actividades'),
         centerTitle: true,
+        backgroundColor: AppColors.fondo3,  
+        titleTextStyle: const TextStyle(
+          color: AppColors.titulos,  
+          fontWeight: FontWeight.bold,
+          fontSize: 22,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -66,9 +59,10 @@ class _HomePageState extends State<HomePage> {
                 itemCount: actividades.length,
                 itemBuilder: (context, index) {
                   final actividad = actividades[index];
-                  bool esPar = actividad['id'] % 2 == 0; // Verificar si el ID es par
+                  bool esPar = actividad['id'] % 2 == 0;
 
                   return Card(
+                    color: Colors.white,  
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -81,39 +75,63 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 Text(
                                   '${actividad['id']}',
-                                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.fondo2,  
+                                  ),
                                 ),
                                 Text(
                                   actividad['title'],
-                                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,  
+                                  ),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   actividad['note'],
-                                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  children: List.generate(
-                                    5,
-                                    (starIndex) => Icon(
-                                      Icons.star,
-                                      color: starIndex < actividad['rating'] ? Colors.yellow : Colors.grey,
-                                      size: 18,
-                                    ),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black, 
                                   ),
                                 ),
+                                const SizedBox(height: 8),
                               ],
                             ),
                           ),
-                          // Solo muestra los botones si es un número par
-                          if (esPar)
-                            Column(
-                              children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                         
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 8.0),
+                                child: Icon(
+                                  Icons.notifications,  
+                                  size: 30,
+                                  color: AppColors.efectos, 
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: List.generate(
+                                  5,
+                                  (starIndex) => Icon(
+                                    Icons.star,
+                                    color: starIndex < actividad['rating']
+                                        ? AppColors.efectos  
+                                        : Colors.grey,      
+                                    size: 18,
+                                  ),
+                                ),
+                              ),
+                              if (esPar) ...[
+                                const SizedBox(height: 8),
                                 ElevatedButton(
-                                  onPressed: () => _verMas(actividad), // Solo navegará si se presiona este botón
+                                  onPressed: () => _verMas(actividad), 
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue, // Mismo color para ambos botones
+                                    backgroundColor: AppColors.botones, 
                                   ),
                                   child: const Text('Ver más'),
                                 ),
@@ -121,12 +139,13 @@ class _HomePageState extends State<HomePage> {
                                 ElevatedButton(
                                   onPressed: () => _borrarActividad(actividad['id']),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue, // Mismo color que "Ver más"
+                                    backgroundColor: AppColors.botones,  
                                   ),
                                   child: const Text('Borrar'),
                                 ),
                               ],
-                            ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -138,7 +157,11 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Segunda Vista: ${widget.studentName}',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.titulos, 
+                ),
               ),
             ),
           ],
